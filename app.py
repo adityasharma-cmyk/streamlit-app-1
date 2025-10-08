@@ -82,7 +82,7 @@ Note that use ROI (as per us) by default. Also note that use this dataframe when
 2. df_loans: This contains details of all loans of the sellers in df_disbursed. All loans means loansvdisbursed through us or through any other institution.
 Following are the columns:  
 - Seller Id: also present in df_disbursed (this is the matching key between both dataframes)
-- Institute Type: type of institute through which tradeline was opened like NBF for NBFC, PUB for public sector bank, PVT for private sector bank etc
+- Institute Type: lender type or type of institute through which tradeline was opened like NBF for NBFC, PUB for public sector bank, PVT for private sector bank etc
 - Account type: Type of loan
 - Open date: Open date of tradeline
 - Sanction Amount: Disbursed Amount
@@ -173,10 +173,10 @@ It contains details such as:
 - Lender type (Private, Public, NBFC), etc.
 
 You can ask questions like:  
-> • Which sellers have overdue accounts above 30 days?  
-> • What is the total disbursed amount for HelloTrade loans?  
-> • How many loans are settled or written off?  
-> • What’s the average DPD across NBFC lenders?
+> • what is the disbursed and outstanding amount of our portfolio? 
+> • Pivot of lender name in rows and disbursed amount bucket in cols. disbursed amount bucket to be used: <1L, 1L-5L,5L-10L>10L  
+> • In rows custtype of sellers, in cols: count of unique sellers with dpd>0,dpd>30,dpd>60,dpd>90 in any month
+> • output details of all market loans of sellers with dpd>90 in our portfolio. details should include seller id, loan type, amount, month wise dpd, open date, close date, roi
 
 The chatbot interprets your questions and answers directly from the underlying data.
 """)
