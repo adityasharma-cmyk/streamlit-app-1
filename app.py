@@ -6,6 +6,14 @@ from ast import literal_eval
 from openai import OpenAI
 import importlib
 
+def show_df(df):
+    """Display a DataFrame without showing the index."""
+    if df is not None and not df.empty:
+        st.dataframe(df.reset_index(drop=True))
+    else:
+        st.info("No data available to display.")
+
+
 # ---------------------------
 # Setup OpenAI client
 # ---------------------------
@@ -188,7 +196,7 @@ You already have access to these modules:
 
 ⚠️ You may write import statements if needed.
 Always assign the final answer to a variable named result.
-Only return code, no explanations, no markdown. Also dont show index colum in the output data in UI.
+Only return code, no explanations, no markdown.
 
 User query: {query}
 """
@@ -223,7 +231,7 @@ User query: {query}
 
             if isinstance(result, pd.DataFrame):
                 st.write("### ✅ Result:")
-                st.dataframe(result)
+                show_df(result)
             else:
                 st.write("### ✅ Result:")
                 st.write(result)
@@ -232,4 +240,3 @@ User query: {query}
 
     except Exception as e:
         st.error(f"⚠️ Error executing code: {e}")
-
