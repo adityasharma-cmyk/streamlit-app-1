@@ -72,7 +72,7 @@ Following are the columns:
 - Written_Off_Amt_Total
 - Rate_of_Interest (roi as per scrub. is number indicating percetage)
 - AccountHoldertypeCode
-- Current Custtype (current service type of seller): CATALOG/TSCATALOG/STAR/LEADER are paid services. Rest all other including blank/null are unpaid services.
+- Current Custtype (current service type of seller)
 - Lender
 - Service Type during application
 - ROI (roi as per us. In percentage)
@@ -124,6 +124,23 @@ def auto_import(extra_globals=None):
         except Exception:
             pass
     return exec_env
+
+# ---------------------------
+# Custom CSS to widen sidebar
+# ---------------------------
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"][aria-expanded="true"] {
+        width: 320px;
+    }
+    [data-testid="stSidebar"][aria-expanded="false"] {
+        width: 80px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # ---------------------------
 # Streamlit UI
