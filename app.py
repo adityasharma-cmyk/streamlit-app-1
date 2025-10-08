@@ -174,11 +174,10 @@ It contains details such as:
 
 You can ask questions like:  
 > • what is the disbursed and outstanding amount of our portfolio? 
-> • Pivot of lender name in rows and disbursed amount bucket in cols. disbursed amount bucket to be used: <1L, 1L-5L,5L-10L>10L  
-> • In rows custtype of sellers, in cols: count of unique sellers with dpd>0,dpd>30,dpd>60,dpd>90 in any month
-> • output details of all market loans of sellers with dpd>90 in our portfolio. details should include seller id, loan type, amount, month wise dpd, open date, close date, roi
+> • Pivot of lender name in rows and disbursed amount bucket in cols. disbursed amount bucket to be used: <1L, 1L-5L,5L-10L>10L? 
+> • In rows custtype of sellers, in cols: count of unique sellers with dpd>0,dpd>30,dpd>60,dpd>90 in any month?
+> • output details of all market loans of sellers with dpd>90 in our portfolio. details should include seller id, loan type, amount, month wise dpd, open date, close date, roi?
 
-The chatbot interprets your questions and answers directly from the underlying data.
 """)
 
 st.sidebar.markdown("---")
