@@ -29,7 +29,8 @@ df_loans = pd.read_excel(excel_path, sheet_name="all loans")
 data_description = """
 We have 2 DataFrames:
 
-1. df_disbursed: this contains details of seller loan disbursed by us, like month wise emi payment delays,open date, close date etc. 
+1. df_disbursed: this contains details of seller loan disbursed through us, like amount, monthly emi payment delays,open date, close date etc.
+Following are the columns: 
 - Seller Id
 - Jul-25 (no of days past due (DPD) in Jul-25)
 - Jun-25 (no of days past due (DPD) in Jun-25)
@@ -67,31 +68,32 @@ We have 2 DataFrames:
 - Disbursed Amount
 - Outstanding Amount
 - SuitFiled_WillfulDefault (1 if SuitFiled_WillfulDefault)
-- Written_off_Settled_Status (1 if Written_off_Settled_Status)
+- Written_off_Settled_Status (1 if Written_off or Settled)
 - Written_Off_Amt_Total
 - Rate_of_Interest (roi as per scrub. is number indicating percetage)
 - AccountHoldertypeCode
-- Current Custtype (current service type of seller)
+- Current Custtype (current service type of seller): CATALOG/TSCATALOG/STAR/LEADER are paid services. Rest all other including blank/null are unpaid services.
 - Lender
 - Service Type during application
 - ROI (roi as per us. In percentage)
 - Paid Vintage (number)
+Note that use ROI (as per us) by default. Also note that use this dataframe when asked about details of loans disbursed through us/hellotrade/Indiamart
 
-
-2. df_loans: This contains details of all types of loans of that seller whether disbursed by us or any other. 
+2. df_loans: This contains details of all loans of the sellers in df_disbursed. All loans means loansvdisbursed through us or through any other institution.
+Following are the columns:  
 - Seller Id: also present in df_disbursed (this is the matching key between both dataframes)
 - Institute Type: type of institute through which tradeline was opened like NBF for NBFC, PUB for public sector bank, PVT for private sector bank etc
 - Account type: Type of loan
 - Open date: Open date of tradeline
-- Sanction Amount: 
+- Sanction Amount: Disbursed Amount
 - Terms_Duration: Tenure of loan
 - Terms_Frequency: Tenure of loan measured in. For ex: 'M' for monthly , 'Q' for quarterly , 'F' for biweekly
 - Current_Balance: outstanding amount
 - Amount_Past_Due: 
-- Date Closed: closed date of tradeline. Blank means tradeline is still open
+- Date Closed: closed date of tradeline. Blank or null means tradeline is still open
 - SuitFiledWillfulDefaultWrittenOffStatus: 
 - SuitFiled_WillfulDefault: 
-- Written_off_Settled_Status: 
+- Written_off_Settled_Status: 2 or 4 means 'written off' , 3 means 'settled' . use this col for written off/settled.
 - Settlement_Amount: 
 - Value_of_Collateral: 
 - Written_Off_Amt_Total: 
@@ -101,7 +103,7 @@ We have 2 DataFrames:
 - AccountHoldertypeCode: 
 - CAIS_Account_History: in this format: [{'Year': '2023', 'Month': '09', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '08', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '07', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '06', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '05', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '04', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '03', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '02', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '01', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2022', 'Month': '12', 'Days_Past_Due': '0', 'Asset_Classification': '?'}]
 - Account_Review_Data: in this format: [{'Year': '2023', 'Month': '9', 'Account_Status': '13', 'Actual_Payment_Amount': '104428', 'Current_Balance': '0', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '8', 'Account_Status': '11', 'Actual_Payment_Amount': '104428', 'Current_Balance': '56059', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '7', 'Account_Status': '11', 'Actual_Payment_Amount': '36396', 'Current_Balance': '60691', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '6', 'Account_Status': '11', 'Actual_Payment_Amount': '30802', 'Current_Balance': '65250', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '5', 'Account_Status': '11', 'Actual_Payment_Amount': '25208', 'Current_Balance': '69738', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '4', 'Account_Status': '11', 'Actual_Payment_Amount': '18670', 'Current_Balance': '74156', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '3', 'Account_Status': '11', 'Actual_Payment_Amount': '12604', 'Current_Balance': '78505', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '2', 'Account_Status': '11', 'Actual_Payment_Amount': '6538', 'Current_Balance': '82786', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '1', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2022', 'Month': '12', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}]
-
+Note that use this dataframe when asked about other loans or open market loans or all loans of sellers in df_disbursed
 """
 
 # ---------------------------
@@ -126,25 +128,42 @@ def auto_import(extra_globals=None):
 # Streamlit UI
 # ---------------------------
 col1, col2 = st.columns([1, 5])
+
 with col1:
-    st.image("logo.png", width=120)  # your logo
+    st.image("logo.png", width=120)
+
 with col2:
-    st.title("Portfolio Chatbot")
+    st.markdown("<h1 style='margin-top: -10px;'>Portfolio Chatbot</h1>", unsafe_allow_html=True)
 
 st.markdown("---")
 
 # ---------------------------
-# Sidebar with collapsible schema
+# Sidebar (clean description)
 # ---------------------------
-st.sidebar.title("📂 Data Schema")
+st.sidebar.title("📘 About This Chatbot")
+st.sidebar.markdown("""
+This chatbot helps you ask questions about **HelloTrade portfolio data** as well as **loan data from the open market** for these sellers.  
 
-with st.sidebar.expander("Disbursed Loans"):
-    for col in df_disbursed.columns:
-        st.write(f"- {col}")
+It contains details such as:  
+- Loan disbursement amounts and dates  
+- Current and outstanding balances  
+- Overdues or delays (DPD)  
+- Written off or settled status  
+- Lender names of HelloTrade disbursed cases  
+- Loan Types of open market loans
+- Service type of each seller  
+- Lender type (Private, Public, NBFC), etc.
 
-with st.sidebar.expander("All Loans"):
-    for col in df_loans.columns:
-        st.write(f"- {col}")
+You can ask questions like:  
+> • Which sellers have overdue accounts above 30 days?  
+> • What is the total disbursed amount for HelloTrade loans?  
+> • How many loans are settled or written off?  
+> • What’s the average DPD across NBFC lenders?
+
+The chatbot interprets your questions and answers directly from the underlying data.
+""")
+
+st.sidebar.markdown("---")
 
 
 query = st.text_input("Ask me something about the Portfolio:")
