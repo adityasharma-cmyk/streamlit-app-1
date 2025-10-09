@@ -54,7 +54,7 @@ data_description = """
 We have 2 DataFrames:
 
 1. df_disbursed: this contains details of seller loan disbursed through us, like amount, monthly emi payment delays,open date, close date etc.
-Following are the columns: 
+Following are the columns with their description in brackets: 
 - Seller Id
 - Jul-25 (no of days past due (DPD) in Jul-25)
 - Jun-25 (no of days past due (DPD) in Jun-25)
@@ -104,31 +104,34 @@ Following are the columns:
 Note that use ROI (as per us) by default. Also note that use this dataframe when asked about details of loans disbursed through us/hellotrade/Indiamart
 
 2. df_loans: This contains details of all loans of the sellers in df_disbursed. All loans means loansvdisbursed through us or through any other institution.
-Following are the columns:  
-- Seller Id: also present in df_disbursed (this is the matching key between both dataframes)
-- Institute Type: lender type or type of institute through which tradeline was opened like NBF for NBFC, PUB for public sector bank, PVT for private sector bank etc
-- Account type: Type of loan
-- Open date: Open date of tradeline
-- Sanction Amount: Disbursed Amount
-- Terms_Duration: Tenure of loan
-- Terms_Frequency: Tenure of loan measured in. For ex: 'M' for monthly , 'Q' for quarterly , 'F' for biweekly
-- Current_Balance: outstanding amount
-- Amount_Past_Due: 
-- Date Closed: closed date of tradeline. Blank or null means tradeline is still open
-- SuitFiledWillfulDefaultWrittenOffStatus: 
-- SuitFiled_WillfulDefault: 
-- Written_off_Settled_Status: 2 or 4 means 'written off' , 3 means 'settled' . use this col for written off/settled.
-- Settlement_Amount: 
-- Value_of_Collateral: 
-- Written_Off_Amt_Total: 
-- Written_Off_Amt_Principal: 
-- Rate_of_Interest: roi as per scrub. is number indicating percetage
-- Repayment_Tenure: 
-- AccountHoldertypeCode: 
-- CAIS_Account_History: in this format: [{'Year': '2023', 'Month': '09', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '08', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '07', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '06', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '05', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '04', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '03', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '02', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '01', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2022', 'Month': '12', 'Days_Past_Due': '0', 'Asset_Classification': '?'}]
-- Account_Review_Data: in this format: [{'Year': '2023', 'Month': '9', 'Account_Status': '13', 'Actual_Payment_Amount': '104428', 'Current_Balance': '0', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '8', 'Account_Status': '11', 'Actual_Payment_Amount': '104428', 'Current_Balance': '56059', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '7', 'Account_Status': '11', 'Actual_Payment_Amount': '36396', 'Current_Balance': '60691', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '6', 'Account_Status': '11', 'Actual_Payment_Amount': '30802', 'Current_Balance': '65250', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '5', 'Account_Status': '11', 'Actual_Payment_Amount': '25208', 'Current_Balance': '69738', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '4', 'Account_Status': '11', 'Actual_Payment_Amount': '18670', 'Current_Balance': '74156', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '3', 'Account_Status': '11', 'Actual_Payment_Amount': '12604', 'Current_Balance': '78505', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '2', 'Account_Status': '11', 'Actual_Payment_Amount': '6538', 'Current_Balance': '82786', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '1', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2022', 'Month': '12', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}]
-Note that use this dataframe when asked about other loans or open market loans or all loans of sellers in df_disbursed.
-Also dont show index colum in the output data.
+Following are the columns with their description in brackets:  
+- Seller Id (also present in df_disbursed. this is the matching key between both dataframes)
+- Institute Type (lender type or type of institute through which tradeline was opened like NBF for NBFC, PUB for public sector bank, PVT for private sector bank etc)
+- Account type (Type of loan)
+- Open date (Open date of tradeline)
+- Sanction Amount (Disbursed Amount)
+- Terms_Duration (Tenure of loan)
+- Terms_Frequency (Tenure of loan measured in. For ex: 'M' for monthly , 'Q' for quarterly , 'F' for biweekly)
+- Current_Balance (outstanding amount)
+- Amount_Past_Due
+- Date Closed (closed date of tradeline. Blank or null means tradeline is still open)
+- SuitFiledWillfulDefaultWrittenOffStatus
+- SuitFiled_WillfulDefault
+- Written_off_Settled_Status (2 or 4 means 'written off' , 3 means 'settled' . use this col for written off/settled)
+- Settlement_Amount 
+- Value_of_Collateral 
+- Written_Off_Amt_Total 
+- Written_Off_Amt_Principal 
+- Rate_of_Interest (is number indicating percetage)
+- Repayment_Tenure
+- AccountHoldertypeCode
+- CAIS_Account_History (in this format: [{'Year': '2023', 'Month': '09', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '08', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '07', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '06', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '05', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '04', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '03', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '02', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2023', 'Month': '01', 'Days_Past_Due': '0', 'Asset_Classification': '?'}, {'Year': '2022', 'Month': '12', 'Days_Past_Due': '0', 'Asset_Classification': '?'}])
+- Account_Review_Data (in this format: [{'Year': '2023', 'Month': '9', 'Account_Status': '13', 'Actual_Payment_Amount': '104428', 'Current_Balance': '0', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '8', 'Account_Status': '11', 'Actual_Payment_Amount': '104428', 'Current_Balance': '56059', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '7', 'Account_Status': '11', 'Actual_Payment_Amount': '36396', 'Current_Balance': '60691', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '6', 'Account_Status': '11', 'Actual_Payment_Amount': '30802', 'Current_Balance': '65250', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '5', 'Account_Status': '11', 'Actual_Payment_Amount': '25208', 'Current_Balance': '69738', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '4', 'Account_Status': '11', 'Actual_Payment_Amount': '18670', 'Current_Balance': '74156', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '3', 'Account_Status': '11', 'Actual_Payment_Amount': '12604', 'Current_Balance': '78505', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '2', 'Account_Status': '11', 'Actual_Payment_Amount': '6538', 'Current_Balance': '82786', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2023', 'Month': '1', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}, {'Year': '2022', 'Month': '12', 'Account_Status': '11', 'Actual_Payment_Amount': '', 'Current_Balance': '87000', 'Credit_Limit_Amount': '87000', 'Amount_Past_Due': '0', 'Cash_Limit': '', 'EMI_Amount': '5594'}])
+
+Some general points to note:
+1. Use df_loans dataframe when asked about other loans or open market loans or all loans of sellers in df_disbursed.
+2. Dont show index colum in the output data.
+3. If asked about monthly dpds in df_loans, use CAIS_Account_History column and show dpds in seperate col's for each month info available in this col's value
 """
 
 # ---------------------------
@@ -236,7 +239,7 @@ User query: {query}
 
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-5",
+            model="google/gemini-2.5-pro",
             messages=[{"role": "user", "content": prompt}]
         )
 
