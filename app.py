@@ -236,7 +236,7 @@ User query: {query}
 
     try:
         response = client.chat.completions.create(
-            model="google/gemini-2.5-pro",
+            model="openai/gpt-5",
             messages=[{"role": "user", "content": prompt}]
         )
 
